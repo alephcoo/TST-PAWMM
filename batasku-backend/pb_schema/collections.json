@@ -1,0 +1,84 @@
+[
+  {
+    "id": "profiles0000001",
+    "name": "profiles",
+    "type": "base",
+    "listRule": "user = @request.auth.id",
+    "viewRule": "user = @request.auth.id",
+    "createRule": "@request.auth.id != '' && @request.body.user = @request.auth.id",
+    "updateRule": "user = @request.auth.id",
+    "deleteRule": "user = @request.auth.id",
+    "fields": [
+      { "name": "user", "type": "relation", "required": true, "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "age", "type": "number", "required": true, "min": 1 },
+      { "name": "gender", "type": "text" },
+      { "name": "height", "type": "number" },
+      { "name": "weight", "type": "number" },
+      { "name": "activity_level", "type": "text" },
+      { "name": "is_pregnant", "type": "bool" },
+      { "name": "has_diabetes", "type": "bool" },
+      { "name": "has_hypertension", "type": "bool" }
+    ]
+  },
+  {
+    "id": "dailylimits0001",
+    "name": "daily_limits",
+    "type": "base",
+    "listRule": "user = @request.auth.id",
+    "viewRule": "user = @request.auth.id",
+    "createRule": null,
+    "updateRule": null,
+    "deleteRule": null,
+    "fields": [
+      { "name": "user", "type": "relation", "required": true, "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "sugar_max", "type": "number" },
+      { "name": "salt_max", "type": "number" },
+      { "name": "fat_max", "type": "number" },
+      { "name": "caffeine_max", "type": "number" },
+      { "name": "alcohol_max", "type": "number" }
+    ]
+  },
+  {
+    "id": "foods0000000001",
+    "name": "foods",
+    "type": "base",
+    "listRule": "",
+    "viewRule": "",
+    "createRule": "@request.auth.id != ''",
+    "updateRule": null,
+    "deleteRule": null,
+    "fields": [
+      { "name": "name", "type": "text", "required": true },
+      { "name": "serving", "type": "text" },
+      { "name": "sugar", "type": "number" },
+      { "name": "salt", "type": "number" },
+      { "name": "fat", "type": "number" },
+      { "name": "caffeine", "type": "number" },
+      { "name": "alcohol", "type": "number" },
+      { "name": "verified", "type": "bool" }
+    ]
+  },
+  {
+    "id": "intakes00000001",
+    "name": "intakes",
+    "type": "base",
+    "listRule": "user = @request.auth.id",
+    "viewRule": "user = @request.auth.id",
+    "createRule": "@request.auth.id != '' && @request.body.user = @request.auth.id",
+    "updateRule": "user = @request.auth.id",
+    "deleteRule": "user = @request.auth.id",
+    "fields": [
+      { "name": "user", "type": "relation", "required": true, "collectionId": "_pb_users_auth_", "maxSelect": 1, "cascadeDelete": true },
+      { "name": "food", "type": "relation", "collectionId": "foods0000000001", "maxSelect": 1 },
+      { "name": "name", "type": "text" },
+      { "name": "portion", "type": "number" },
+      { "name": "sugar", "type": "number" },
+      { "name": "salt", "type": "number" },
+      { "name": "fat", "type": "number" },
+      { "name": "caffeine", "type": "number" },
+      { "name": "alcohol", "type": "number" },
+      { "name": "verified", "type": "bool" },
+      { "name": "consumed_date", "type": "text" }
+    ]
+  }
+]

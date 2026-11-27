@@ -1,0 +1,32 @@
+volumes:
+  pb_data:
+
+services:
+  core-service:
+    build: ./core-service
+    restart: unless-stopped
+    mem_limit: 256m
+    cpus: 0.5
+    volumes:
+      - pb_data:/pb_data
+    ports:
+      - "8090:8090" # Untuk akses admin dashboard sementara saat setup
+
+  gateway:
+    image: nginx:1.28-alpine
+    restart: unless-stopped
+    mem_limit: 64m
+    ports:
+      - "8080:80"
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - core-service
+
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${TUNNEL_TOKEN}
+    depends_on:
+      - gateway
+    profiles: ["tunnel"]
